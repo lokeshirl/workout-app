@@ -11,6 +11,8 @@ const createToken = (payload) => {
 const handleUserSignup = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log(req.body);
+
   try {
     const user = await User.signup(email, password);
     const payloadForSigningToken = {
@@ -21,7 +23,7 @@ const handleUserSignup = async (req, res) => {
     // create token for user after signup
     const token = createToken(payloadForSigningToken);
 
-    res.status(201).json({ email, user, token });
+    res.status(201).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -34,6 +36,8 @@ const handleUserLogin = async (req, res) => {
   try {
     const user = await User.login(email, password);
 
+    
+
     const payloadForSigningToken = {
       id: user._id,
       email: user.email,
@@ -41,7 +45,7 @@ const handleUserLogin = async (req, res) => {
 
     // create token for user after login
     const token = createToken(payloadForSigningToken);
-    res.status(200).json({ email, user, token });
+    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

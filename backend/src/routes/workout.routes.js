@@ -6,8 +6,12 @@ import {
   getWorkoutsById,
   updateWorkout,
 } from '../controllers/workout.controllers.js';
+import requireAuth from '../middleware/requireAuth.middleware.js';
 
 const workoutRoutes = Router();
+
+// authorization middleware
+workoutRoutes.use(requireAuth);
 
 // GET all workouts
 workoutRoutes.get('/', getWorkouts);

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useWorkoutsContext } from '../context/WorkoutContext';
+import { useAuthContext } from '../context/AuthContext';
 
 const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext();
+  const {user } = useAuthContext();
   const [title, setTitle] = useState('');
   const [load, setLoad] = useState('');
   const [reps, setReps] = useState('');
@@ -19,6 +21,7 @@ const WorkoutForm = () => {
       body: JSON.stringify(workout),
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${user.token}`,
       },
     });
 
